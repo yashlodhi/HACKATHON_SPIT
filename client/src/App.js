@@ -34,6 +34,7 @@ function App() {
         <nav>
           <div> <NavLink to="/dashboard" className="nav_elements"> Dashboard </NavLink> </div>
           <div> <NavLink to="/visualizations" className="nav_elements"> Visualizations </NavLink> </div>
+          <div> <NavLink to="/predict" className="nav_elements"> Predict </NavLink> </div>
         </nav>
       </header>
 
@@ -41,7 +42,7 @@ function App() {
         <Route exact path="/" element={ <Dashboard usersList={usersList} />} />
         <Route exact path="/dashboard" element={ <Dashboard usersList={usersList} />} />
         <Route exact path="/visualizations" element={ <Visualizations />} />
-        <Route exact path="/form" element={ <Form />} />
+        <Route exact path="/predict" element={ <Form />} />
       </Routes>
     </>
   );

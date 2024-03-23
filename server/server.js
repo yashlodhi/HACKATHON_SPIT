@@ -3,6 +3,8 @@ const app = express();
 const cors = require("cors");
 const fs = require("fs");
 const { parse } = require("csv-parse");
+const bodyParser = require('body-parser');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const Port = 9000;
 
 app.use(
@@ -11,7 +13,12 @@ app.use(
   })
 );
 
-app.get("/getDashboardData", async (req, res) => {
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+app.get('/getDashboardData', async (req, res) => {
   let data = [];
   let lineNumber = 0;
   let responseSent = false;  
@@ -43,9 +50,28 @@ app.get("/getDashboardData", async (req, res) => {
     });
 });
 
-app.post("/form", async (req, res) => {
 
-}
+// Endpoint to handle form submission
+app.post('/predict', (req, res) => {
+    const data = req.body; // Form data received from frontend
+
+    // Create CSV writer
+    const csvWriter = createCsvWriter({
+        path: 'form_data.csv',
+        header: Object.keys(data).map(key => ({ id: key, title: key }))
+    });
+
+    // Write form data to CSV file
+    csvWriter.writeRecords([data])
+        .then(() => {
+            console.log('CSV file written successfully');
+            res.sendStatus(200); // Send success response to frontend
+        })
+        .catch(error => {
+            console.error('Error writing CSV file:', error);
+            res.sendStatus(500); // Send error response to frontend
+        });
+});
 
 
 
