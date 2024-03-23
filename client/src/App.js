@@ -4,6 +4,8 @@ import { Routes, Route, NavLink } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Visualizations from "./Components/Visualizations/Visualizations";
+import Form from "./Components/Form/Form";
+
 
 function App() {
   const [usersList, setUsersList] = useState([]);
@@ -39,6 +41,7 @@ function App() {
         <Route exact path="/" element={ <Dashboard usersList={usersList} />} />
         <Route exact path="/dashboard" element={ <Dashboard usersList={usersList} />} />
         <Route exact path="/visualizations" element={ <Visualizations />} />
+        <Route exact path="/form" element={ <Form />} />
       </Routes>
     </>
   );

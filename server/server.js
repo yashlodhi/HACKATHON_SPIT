@@ -17,7 +17,7 @@ app.get("/getDashboardData", async (req, res) => {
   let responseSent = false;  
 
   fs.createReadStream("./dataset.csv")
-    .pipe(parse({ delimiter: ",", from_line: 1 }))
+    .pipe(parse({ delimiter: ",", from_line: 2 }))
     .on("data", function (row) {
       if (!responseSent) {  
         data.push(row);
@@ -42,5 +42,11 @@ app.get("/getDashboardData", async (req, res) => {
       }
     });
 });
+
+app.post("/form", async (req, res) => {
+
+}
+
+
 
 app.listen(Port, () => console.log(`SERVER IS RUNNING ON PORT ${Port}`));
