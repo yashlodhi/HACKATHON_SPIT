@@ -51,28 +51,26 @@ app.get('/getDashboardData', async (req, res) => {
 });
 
 
-// Endpoint to handle form submission
 app.post('/predict', (req, res) => {
-    const data = req.body; // Form data received from frontend
+    const formData = req.body; // Form data received from frontend
 
     // Create CSV writer
     const csvWriter = createCsvWriter({
         path: 'form_data.csv',
-        header: Object.keys(data).map(key => ({ id: key, title: key }))
+        header: Object.keys(formData).map(key => ({ id: key, title: key }))
     });
 
     // Write form data to CSV file
-    csvWriter.writeRecords([data])
+    csvWriter.writeRecords([formData])
         .then(() => {
             console.log('CSV file written successfully');
             res.sendStatus(200); // Send success response to frontend
         })
         .catch(error => {
-            console.error('Error writing CSV file:', error);
+            console.error('Error writing CSV file:', error.message); // Log specific error message
             res.sendStatus(500); // Send error response to frontend
         });
 });
-
 
 
 app.listen(Port, () => console.log(`SERVER IS RUNNING ON PORT ${Port}`));
