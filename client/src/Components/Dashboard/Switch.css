@@ -5,19 +5,20 @@
     margin-left: 10px;
     width: 45px;
     height: 26px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
+}
+
+/* Hide default HTML checkbox */
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  /* The slider */
-  .slider {
+}
+
+/* The slider */
+.slider {
     position: absolute;
     cursor: pointer;
+    border-radius: 2px;
     top: 0;
     left: 0;
     right: 0;
@@ -25,11 +26,12 @@
     background-color: #ccc;
     -webkit-transition: 0.4s;
     transition: 0.4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
+    border-radius: 2px;
     height: 17px;
     width: 17px;
     left: 4px;

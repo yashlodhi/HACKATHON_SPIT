@@ -6,23 +6,25 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import Visualizations from "./Components/Visualizations/Visualizations";
 
 function App() {
+  const [usersList, setUsersList] = useState([]);
   useEffect(() => {
-    let usersList = [];
     fetch("http://localhost:9000/getDashboardData")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+          throw new Error("Network response was not ok") ;  
+        } 
         return response.json();
       })
-      .then((users) => {
-        console.log(users)
-        usersList = users.data;
+      .then(async (result) => {
+        result = result.map((user, index) => [1000+index, ...user]);
+        setUsersList(result) ;
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Error:", error) ;  
       });
   }, []);
+
+ 
 
   return (
     <>
@@ -34,13 +36,9 @@ function App() {
       </header>
 
       <Routes>
-        <Route exact path="/" element={<Dashboard />}></Route>
-        <Route exact path="/dashboard" element={<Dashboard />}></Route>
-        <Route
-          exact
-          path="/visualizations"
-          element={<Visualizations />}
-        ></Route>
+        <Route exact path="/" element={ <Dashboard usersList={usersList} />} />
+        <Route exact path="/dashboard" element={ <Dashboard usersList={usersList} />} />
+        <Route exact path="/visualizations" element={ <Visualizations />} />
       </Routes>
     </>
   );
